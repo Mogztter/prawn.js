@@ -1,0 +1,50 @@
+{
+  "name": "prawn.js",
+  "version": "2.1.0-preview.1",
+  "description": "A JavaScript PDF writer, cross-compiled from the Ruby library Prawn using Opal",
+  "main": "dist/prawn.js",
+  "engines": {
+    "node": ">=4",
+    "npm": ">=3.0.0"
+  },
+  "files": [
+    "dist/prawn.js",
+    "LICENSE",
+    "README.adoc"
+  ],
+  "scripts": {
+    "build": "node npm/build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mogztter/prawn.js.git"
+  },
+  "keywords": [
+    "prawn",
+    "pdf",
+    "opal",
+    "javascript",
+    "library"
+  ],
+  "authors": [
+    "Guillaume Grossetie (https://github.com/mogztter)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mogztter/prawn.js/issues"
+  },
+  "homepage": "https://github.com/mogztter/prawn.js",
+  "dependencies": {
+    "js-sha1": "^0.4.1",
+    "opal-runtime": "0.11.0-integration8",
+    "xmlhttprequest": "~1.7.0"
+  },
+  "devDependencies": {
+    "async": "^1.5.0",
+    "bestikk-download": "^0.1.0",
+    "bestikk-fs": "^0.1.0",
+    "bestikk-log": "0.1.0",
+    "bestikk-opal-compiler": "0.3.0-integration7",
+    "bestikk-uglify": "0.1.1"
+  }
+}

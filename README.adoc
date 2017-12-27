@@ -1,0 +1,20 @@
+= Prawn.js
+// Aliases:
+:project-name: Prawn.js
+
+A JavaScript PDF writer, cross-compiled from the Ruby library Prawn using Opal
+
+[caption=Status]
+CAUTION: {project-name} is currently _under development_ and not ready for use.
+
+== Build
+
+```
+npm run build
+```
+
+== Run
+
+```
+node test.js
+```

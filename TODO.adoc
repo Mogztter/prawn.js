@@ -1,0 +1,6 @@
+= TODO
+
+* [x] Implement `File.symlink?` on Opal (runtime)
+* [ ] Remove zlib dependency
+* [ ] Replace digest/md5 & digest/sha1 dependency
+* [ ] Remove thread dependency
