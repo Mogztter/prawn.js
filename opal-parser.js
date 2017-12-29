@@ -20711,7 +20711,7 @@ Opal.modules["opal/nodes/literal"] = function(Opal) {
   }
   var self = Opal.top, $nesting = [], nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $module = Opal.module, $klass = Opal.klass, $truthy = Opal.truthy, $hash2 = Opal.hash2, $send = Opal.send, $gvars = Opal.gvars;
 
-  Opal.add_stubs(['$require', '$handle', '$push', '$to_s', '$type', '$children', '$value', '$recv?', '$wrap', '$join', '$keys', '$gsub', '$even?', '$length', '$+', '$chop', '$[]', '$encoding', '$!=', '$inspect', '$to_i', '$to_utf16', '$translate_escape_chars', '$name', '$lambda', '$upcase', '$<=', '$call', '$-', '$>>', '$&', '$attr_accessor', '$extract_flags_and_value', '$select!', '$flags', '$=~', '$warning', '$compiler', '$===', '$compile_dynamic_regexp', '$compile_static_regexp', '$any?', '$expr', '$new', '$map', '$to_proc', '$flags=', '$s', '$value=', '$include?', '$is_a?', '$==', '$updated', '$delete', '$source', '$expression', '$loc', '$regexp', '$each', '$first', '$raise', '$each_with_index', '$compile_inline?', '$helper', '$compile_inline', '$compile_range_initialize', '$start', '$finish', '$numerator', '$denominator', '$real', '$imag']);
+  Opal.add_stubs(['$require', '$handle', '$push', '$to_s', '$type', '$children', '$value', '$recv?', '$wrap', '$join', '$keys', '$gsub', '$even?', '$length', '$+', '$chop', '$[]', '$encoding', '$!=', '$inspect', '$to_i', '$to_utf16', '$translate_escape_chars', '$name', '$lambda', '$upcase', '$<=', '$call', '$-', '$>>', '$&', '$attr_accessor', '$extract_flags_and_value', '$select!', '$flags', '$=~', '$warning', '$compiler', '$===', '$compile_dynamic_regexp', '$compile_static_regexp', '$any?', '$expr', '$new', '$map', '$to_proc', '$flags=', '$s', '$value=', '$include?', '$is_a?', '$==', '$updated', '$delete', '$source', '$expression', '$loc', '$regexp', '$each', '$expr?', '$size', '$detect_and_remove_trailing_semicolon', '$first', '$raise', '$match', '$line', '$sub', '$each_with_index', '$compile_inline?', '$helper', '$compile_inline', '$compile_range_initialize', '$start', '$finish', '$numerator', '$denominator', '$real', '$imag']);
   
   self.$require("opal/nodes/base");
   return (function($base, $parent_nesting) {
@@ -20991,19 +20991,22 @@ if (part == null) part = nil;
         function $XStringNode(){};
         var self = $XStringNode = $klass($base, $super, 'XStringNode', $XStringNode);
 
-        var def = self.$$proto, $nesting = [self].concat($parent_nesting), TMP_XStringNode_compile_22;
+        var def = self.$$proto, $nesting = [self].concat($parent_nesting), TMP_XStringNode_compile_22, TMP_XStringNode_detect_and_remove_trailing_semicolon_23;
 
         
         self.$handle("xstr");
-        return (Opal.defn(self, '$compile', TMP_XStringNode_compile_22 = function $$compile() {
+        
+        Opal.defn(self, '$compile', TMP_XStringNode_compile_22 = function $$compile() {
           var TMP_21, self = this;
 
           
-          $send(self.$children(), 'each', [], (TMP_21 = function(child){var self = TMP_21.$$s || this, $case = nil, value = nil, str = nil;
+          $send(self.$children(), 'each', [], (TMP_21 = function(child){var self = TMP_21.$$s || this, $a, $case = nil, value = nil, str = nil;
 if (child == null) child = nil;
           return (function() {$case = child.$type();
             if ("str"['$===']($case)) {
             value = child.$loc().$expression().$source();
+            if ($truthy(($truthy($a = self['$expr?']()) ? self.$children().$size()['$=='](1) : $a))) {
+              value = self.$detect_and_remove_trailing_semicolon(value, child)};
             return self.$push(Opal.const_get_relative($nesting, 'Fragment').$new(value, nil));}
             else if ("begin"['$===']($case)) {return self.$push(self.$expr(child))}
             else if ("gvar"['$===']($case) || "ivar"['$===']($case)) {return self.$push(self.$expr(child))}
@@ -21018,22 +21021,33 @@ if (child == null) child = nil;
             } else {
             return nil
           };
-        }, TMP_XStringNode_compile_22.$$arity = 0), nil) && 'compile';
+        }, TMP_XStringNode_compile_22.$$arity = 0);
+        return (Opal.defn(self, '$detect_and_remove_trailing_semicolon', TMP_XStringNode_detect_and_remove_trailing_semicolon_23 = function $$detect_and_remove_trailing_semicolon(value, node) {
+          var self = this;
+
+          if ($truthy(value.$match(new RegExp("" + ";\\s*" + (Opal.const_get_relative($nesting, 'REGEXP_END')))))) {
+            
+            self.$compiler().$warning("Do not terminate one-line xstr expression with semicolon", node.$line());
+            return value.$sub(new RegExp("" + ";\\s*" + (Opal.const_get_relative($nesting, 'REGEXP_END'))), "");
+            } else {
+            return value
+          }
+        }, TMP_XStringNode_detect_and_remove_trailing_semicolon_23.$$arity = 2), nil) && 'detect_and_remove_trailing_semicolon';
       })($nesting[0], Opal.const_get_relative($nesting, 'Base'), $nesting);
       (function($base, $super, $parent_nesting) {
         function $DynamicStringNode(){};
         var self = $DynamicStringNode = $klass($base, $super, 'DynamicStringNode', $DynamicStringNode);
 
-        var def = self.$$proto, $nesting = [self].concat($parent_nesting), TMP_DynamicStringNode_compile_24;
+        var def = self.$$proto, $nesting = [self].concat($parent_nesting), TMP_DynamicStringNode_compile_25;
 
         
         self.$handle("dstr");
-        return (Opal.defn(self, '$compile', TMP_DynamicStringNode_compile_24 = function $$compile() {
-          var TMP_23, self = this;
+        return (Opal.defn(self, '$compile', TMP_DynamicStringNode_compile_25 = function $$compile() {
+          var TMP_24, self = this;
 
           
           self.$push("\"\"");
-          return $send(self.$children(), 'each_with_index', [], (TMP_23 = function(part, idx){var self = TMP_23.$$s || this;
+          return $send(self.$children(), 'each_with_index', [], (TMP_24 = function(part, idx){var self = TMP_24.$$s || this;
 if (part == null) part = nil;if (idx == null) idx = nil;
           
             self.$push(" + ");
@@ -21046,8 +21060,8 @@ if (part == null) part = nil;if (idx == null) idx = nil;
               return self.$wrap("(", ")")
               } else {
               return nil
-            };}, TMP_23.$$s = self, TMP_23.$$arity = 2, TMP_23));
-        }, TMP_DynamicStringNode_compile_24.$$arity = 0), nil) && 'compile';
+            };}, TMP_24.$$s = self, TMP_24.$$arity = 2, TMP_24));
+        }, TMP_DynamicStringNode_compile_25.$$arity = 0), nil) && 'compile';
       })($nesting[0], Opal.const_get_relative($nesting, 'Base'), $nesting);
       (function($base, $super, $parent_nesting) {
         function $DynamicSymbolNode(){};
@@ -21061,13 +21075,13 @@ if (part == null) part = nil;if (idx == null) idx = nil;
         function $RangeNode(){};
         var self = $RangeNode = $klass($base, $super, 'RangeNode', $RangeNode);
 
-        var def = self.$$proto, $nesting = [self].concat($parent_nesting), TMP_RangeNode_compile_25, TMP_RangeNode_compile_inline$q_26, TMP_RangeNode_compile_inline_27, TMP_RangeNode_compile_range_initialize_28;
+        var def = self.$$proto, $nesting = [self].concat($parent_nesting), TMP_RangeNode_compile_26, TMP_RangeNode_compile_inline$q_27, TMP_RangeNode_compile_inline_28, TMP_RangeNode_compile_range_initialize_29;
 
         
         self.$children("start", "finish");
         Opal.const_set($nesting[0], 'SIMPLE_CHILDREN_TYPES', ["int", "float", "str", "sym"]);
         
-        Opal.defn(self, '$compile', TMP_RangeNode_compile_25 = function $$compile() {
+        Opal.defn(self, '$compile', TMP_RangeNode_compile_26 = function $$compile() {
           var self = this;
 
           if ($truthy(self['$compile_inline?']())) {
@@ -21077,94 +21091,94 @@ if (part == null) part = nil;if (idx == null) idx = nil;
             } else {
             return self.$compile_range_initialize()
           }
-        }, TMP_RangeNode_compile_25.$$arity = 0);
+        }, TMP_RangeNode_compile_26.$$arity = 0);
         
-        Opal.defn(self, '$compile_inline?', TMP_RangeNode_compile_inline$q_26 = function() {
+        Opal.defn(self, '$compile_inline?', TMP_RangeNode_compile_inline$q_27 = function() {
           var $a, $b, self = this;
 
           return ($truthy($a = (($b = self.$start().$type()['$=='](self.$finish().$type())) ? Opal.const_get_relative($nesting, 'SIMPLE_CHILDREN_TYPES')['$include?'](self.$start().$type()) : self.$start().$type()['$=='](self.$finish().$type()))) ? Opal.const_get_relative($nesting, 'SIMPLE_CHILDREN_TYPES')['$include?'](self.$finish().$type()) : $a)
-        }, TMP_RangeNode_compile_inline$q_26.$$arity = 0);
+        }, TMP_RangeNode_compile_inline$q_27.$$arity = 0);
         
-        Opal.defn(self, '$compile_inline', TMP_RangeNode_compile_inline_27 = function $$compile_inline() {
+        Opal.defn(self, '$compile_inline', TMP_RangeNode_compile_inline_28 = function $$compile_inline() {
           var self = this;
 
           return self.$raise(Opal.const_get_relative($nesting, 'NotImplementedError'))
-        }, TMP_RangeNode_compile_inline_27.$$arity = 0);
-        return (Opal.defn(self, '$compile_range_initialize', TMP_RangeNode_compile_range_initialize_28 = function $$compile_range_initialize() {
+        }, TMP_RangeNode_compile_inline_28.$$arity = 0);
+        return (Opal.defn(self, '$compile_range_initialize', TMP_RangeNode_compile_range_initialize_29 = function $$compile_range_initialize() {
           var self = this;
 
           return self.$raise(Opal.const_get_relative($nesting, 'NotImplementedError'))
-        }, TMP_RangeNode_compile_range_initialize_28.$$arity = 0), nil) && 'compile_range_initialize';
+        }, TMP_RangeNode_compile_range_initialize_29.$$arity = 0), nil) && 'compile_range_initialize';
       })($nesting[0], Opal.const_get_relative($nesting, 'Base'), $nesting);
       (function($base, $super, $parent_nesting) {
         function $InclusiveRangeNode(){};
         var self = $InclusiveRangeNode = $klass($base, $super, 'InclusiveRangeNode', $InclusiveRangeNode);
 
-        var def = self.$$proto, $nesting = [self].concat($parent_nesting), TMP_InclusiveRangeNode_compile_inline_29, TMP_InclusiveRangeNode_compile_range_initialize_30;
+        var def = self.$$proto, $nesting = [self].concat($parent_nesting), TMP_InclusiveRangeNode_compile_inline_30, TMP_InclusiveRangeNode_compile_range_initialize_31;
 
         
         self.$handle("irange");
         
-        Opal.defn(self, '$compile_inline', TMP_InclusiveRangeNode_compile_inline_29 = function $$compile_inline() {
+        Opal.defn(self, '$compile_inline', TMP_InclusiveRangeNode_compile_inline_30 = function $$compile_inline() {
           var self = this;
 
           return self.$push("$range(", self.$expr(self.$start()), ", ", self.$expr(self.$finish()), ", false)")
-        }, TMP_InclusiveRangeNode_compile_inline_29.$$arity = 0);
-        return (Opal.defn(self, '$compile_range_initialize', TMP_InclusiveRangeNode_compile_range_initialize_30 = function $$compile_range_initialize() {
+        }, TMP_InclusiveRangeNode_compile_inline_30.$$arity = 0);
+        return (Opal.defn(self, '$compile_range_initialize', TMP_InclusiveRangeNode_compile_range_initialize_31 = function $$compile_range_initialize() {
           var self = this;
 
           return self.$push("Opal.Range.$new(", self.$expr(self.$start()), ", ", self.$expr(self.$finish()), ", false)")
-        }, TMP_InclusiveRangeNode_compile_range_initialize_30.$$arity = 0), nil) && 'compile_range_initialize';
+        }, TMP_InclusiveRangeNode_compile_range_initialize_31.$$arity = 0), nil) && 'compile_range_initialize';
       })($nesting[0], Opal.const_get_relative($nesting, 'RangeNode'), $nesting);
       (function($base, $super, $parent_nesting) {
         function $ExclusiveRangeNode(){};
         var self = $ExclusiveRangeNode = $klass($base, $super, 'ExclusiveRangeNode', $ExclusiveRangeNode);
 
-        var def = self.$$proto, $nesting = [self].concat($parent_nesting), TMP_ExclusiveRangeNode_compile_inline_31, TMP_ExclusiveRangeNode_compile_range_initialize_32;
+        var def = self.$$proto, $nesting = [self].concat($parent_nesting), TMP_ExclusiveRangeNode_compile_inline_32, TMP_ExclusiveRangeNode_compile_range_initialize_33;
 
         
         self.$handle("erange");
         
-        Opal.defn(self, '$compile_inline', TMP_ExclusiveRangeNode_compile_inline_31 = function $$compile_inline() {
+        Opal.defn(self, '$compile_inline', TMP_ExclusiveRangeNode_compile_inline_32 = function $$compile_inline() {
           var self = this;
 
           return self.$push("$range(", self.$expr(self.$start()), ", ", self.$expr(self.$finish()), ", true)")
-        }, TMP_ExclusiveRangeNode_compile_inline_31.$$arity = 0);
-        return (Opal.defn(self, '$compile_range_initialize', TMP_ExclusiveRangeNode_compile_range_initialize_32 = function $$compile_range_initialize() {
+        }, TMP_ExclusiveRangeNode_compile_inline_32.$$arity = 0);
+        return (Opal.defn(self, '$compile_range_initialize', TMP_ExclusiveRangeNode_compile_range_initialize_33 = function $$compile_range_initialize() {
           var self = this;
 
           return self.$push("Opal.Range.$new(", self.$expr(self.$start()), ",", self.$expr(self.$finish()), ", true)")
-        }, TMP_ExclusiveRangeNode_compile_range_initialize_32.$$arity = 0), nil) && 'compile_range_initialize';
+        }, TMP_ExclusiveRangeNode_compile_range_initialize_33.$$arity = 0), nil) && 'compile_range_initialize';
       })($nesting[0], Opal.const_get_relative($nesting, 'RangeNode'), $nesting);
       (function($base, $super, $parent_nesting) {
         function $RationalNode(){};
         var self = $RationalNode = $klass($base, $super, 'RationalNode', $RationalNode);
 
-        var def = self.$$proto, $nesting = [self].concat($parent_nesting), TMP_RationalNode_compile_33;
+        var def = self.$$proto, $nesting = [self].concat($parent_nesting), TMP_RationalNode_compile_34;
 
         
         self.$handle("rational");
         self.$children("value");
-        return (Opal.defn(self, '$compile', TMP_RationalNode_compile_33 = function $$compile() {
+        return (Opal.defn(self, '$compile', TMP_RationalNode_compile_34 = function $$compile() {
           var self = this;
 
           return self.$push("" + "Opal.Rational.$new(" + (self.$value().$numerator()) + ", " + (self.$value().$denominator()) + ")")
-        }, TMP_RationalNode_compile_33.$$arity = 0), nil) && 'compile';
+        }, TMP_RationalNode_compile_34.$$arity = 0), nil) && 'compile';
       })($nesting[0], Opal.const_get_relative($nesting, 'Base'), $nesting);
       (function($base, $super, $parent_nesting) {
         function $ComplexNode(){};
         var self = $ComplexNode = $klass($base, $super, 'ComplexNode', $ComplexNode);
 
-        var def = self.$$proto, $nesting = [self].concat($parent_nesting), TMP_ComplexNode_compile_34;
+        var def = self.$$proto, $nesting = [self].concat($parent_nesting), TMP_ComplexNode_compile_35;
 
         
         self.$handle("complex");
         self.$children("value");
-        return (Opal.defn(self, '$compile', TMP_ComplexNode_compile_34 = function $$compile() {
+        return (Opal.defn(self, '$compile', TMP_ComplexNode_compile_35 = function $$compile() {
           var self = this;
 
           return self.$push("" + "Opal.Complex.$new(" + (self.$value().$real()) + ", " + (self.$value().$imag()) + ")")
-        }, TMP_ComplexNode_compile_34.$$arity = 0), nil) && 'compile';
+        }, TMP_ComplexNode_compile_35.$$arity = 0), nil) && 'compile';
       })($nesting[0], Opal.const_get_relative($nesting, 'Base'), $nesting);
     })($nesting[0], $nesting)
   })($nesting[0], $nesting);

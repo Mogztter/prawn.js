@@ -1,15 +1,12 @@
 Opal = require('opal-runtime').Opal;
 
-require('./opal-parser.js');
-Opal.require('opal-parser');
-
 require('./enumerator.js');
 Opal.require('enumerator');
 
 require('./thread.js');
 Opal.require('thread');
 
-require('./build/prawn-lib.js');
+require('./prawn-lib.js');
 Opal.require('prawn');
 
 console.log(Opal.Prawn);

@@ -1,6 +1,40 @@
 = TODO
 
+== Compilation
+
+* [ ] Replace `output << "%\xFF\xFF\xFF\xFF\n"` in `pdf-core/lib/pdf/core/renderer.rb`
+* [ ] Replace `"\xFE\xFF".force_encoding(::Encoding::UTF_16BE) + str.encode(::Encoding::UTF_16BE)` by `str.encode(::Encoding::UTF_16BE)` in `pdf-core/lib/pdf/core/pdf_object.rb` (method `utf8_to_utf16`)
+* [ ] Replace `stripped = gsub(/[\x00-\x19\x80-\xff]/n, '')` by `stripped = gsub(/[\x00-\x19]/n, '')` in `ttfunk/lib/ttfunk/table/name.rb` (method `strip_extended`)
+
+== Runtime
+
+* [ ] `BASEDIR` and `DATADIR` should be static in `prawn.rb`
 * [x] Implement `File.symlink?` on Opal (runtime)
 * [ ] Remove zlib dependency
 * [ ] Replace digest/md5 & digest/sha1 dependency
 * [ ] Remove thread dependency
+
+== Current error
+
+```
+node test.js
+```
+
+```
+Object freezing is not supported by Opal
+
+/home/guillaume/workspace/opensource/prawn.js/node_modules/opal-runtime/src/opal.js:5022
+      throw exception;
+      ^
+RuntimeError: Unsupported pack directive "U" (no chunk reader defined)
+    at processChunk (/home/guillaume/workspace/opensource/prawn.js/node_modules/opal-runtime/src/opal.js:19808:16)
+    at /home/guillaume/workspace/opensource/prawn.js/node_modules/opal-runtime/src/opal.js:19825:20
+    at yieldAndReset (/home/guillaume/workspace/opensource/prawn.js/node_modules/opal-runtime/src/opal-parser.js:111:9)
+    at self.eachDirectiveAndCount (/home/guillaume/workspace/opensource/prawn.js/node_modules/opal-runtime/src/opal-parser.js:141:7)
+    at Array.$$pack [as $pack] (/home/guillaume/workspace/opensource/prawn.js/node_modules/opal-runtime/src/opal.js:19824:7)
+    at /home/guillaume/workspace/opensource/prawn.js/prawn-lib.js:9802:115
+    at /home/guillaume/workspace/opensource/prawn.js/prawn-lib.js:10075:7
+    at Opal.modules.prawn/text (/home/guillaume/workspace/opensource/prawn.js/prawn-lib.js:10076:5)
+    at Object.Opal.load (/home/guillaume/workspace/opensource/prawn.js/node_modules/opal-runtime/src/opal.js:2192:7)
+    at Object_alloc.Opal.require [as $require] (/home/guillaume/workspace/opensource/prawn.js/node_modules/opal-runtime/src/opal.js:2216:17)
+```
