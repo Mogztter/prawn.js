@@ -4381,7 +4381,7 @@ Opal.modules["pdf/core/pdf_object"] = function(Opal) {
   }
   var self = Opal.top, $nesting = [], nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $module = Opal.module, $send = Opal.send, $truthy = Opal.truthy;
 
-  Opal.add_stubs(['$module_function', '$round', '$to_f', '$join', '$map', '$real', '$encode', '$force_encoding', '$first', '$unpack', '$===', '$is_a?', '$String', '$<<', '$pdf_object', '$gsub', '$+', '$chop', '$strftime', '$utf8_to_utf16', '$string_to_hex', '$to_s', '$<', '$>', '$include?', '$upcase', '$pack', '$each', '$raise', '$to_sym', '$to_hash', '$name', '$value', '$inspect']);
+  Opal.add_stubs(['$module_function', '$round', '$to_f', '$join', '$map', '$real', '$encode', '$force_encoding', '$first', '$unpack', '$p', '$===', '$is_a?', '$String', '$+', '$pdf_object', '$gsub', '$chop', '$strftime', '$utf8_to_utf16', '$string_to_hex', '$to_s', '$<', '$>', '$include?', '$upcase', '$pack', '$each', '$raise', '$to_sym', '$to_hash', '$name', '$value', '$inspect']);
   return (function($base, $parent_nesting) {
     var $PDF, self = $PDF = $module($base, 'PDF');
 
@@ -4427,6 +4427,8 @@ if (e == null) e = nil;
         if (in_content_stream == null) {
           in_content_stream = false;
         }
+        
+        self.$p(obj);
         return (function() {$case = obj;
         if (Opal.const_get_relative($nesting, 'NilClass')['$===']($case)) {return "null"}
         else if (Opal.const_get_relative($nesting, 'TrueClass')['$===']($case)) {return "true"}
@@ -4437,9 +4439,9 @@ if (e == null) e = nil;
           obj = self.$real(obj)
         };
         return self.$String(obj);}
-        else if (Opal.const_get_relative($nesting, 'Array')['$===']($case)) {return "["['$<<']($send(obj, 'map', [], (TMP_6 = function(e){var self = TMP_6.$$s || this;
+        else if (Opal.const_get_relative($nesting, 'Array')['$===']($case)) {return $rb_plus($rb_plus("[", $send(obj, 'map', [], (TMP_6 = function(e){var self = TMP_6.$$s || this;
 if (e == null) e = nil;
-        return self.$pdf_object(e, in_content_stream)}, TMP_6.$$s = self, TMP_6.$$arity = 1, TMP_6)).$join(" "))['$<<']("]")}
+        return self.$pdf_object(e, in_content_stream)}, TMP_6.$$s = self, TMP_6.$$arity = 1, TMP_6)).$join(" ")), "]")}
         else if (Opal.const_get_qualified(Opal.const_get_qualified(Opal.const_get_relative($nesting, 'PDF'), 'Core'), 'LiteralString')['$===']($case)) {
         obj = $send(obj, 'gsub', [/[\\\n\r\t\b\f\(\)]/], (TMP_7 = function(m){var self = TMP_7.$$s || this;
 if (m == null) m = nil;
@@ -4451,13 +4453,13 @@ if (m == null) m = nil;
 if (m == null) m = nil;
         return "" + "\\" + (m)}, TMP_8.$$s = self, TMP_8.$$arity = 1, TMP_8));
         return "" + "(" + (obj) + ")";}
-        else if (Opal.const_get_qualified(Opal.const_get_qualified(Opal.const_get_relative($nesting, 'PDF'), 'Core'), 'ByteString')['$===']($case)) {return "<"['$<<'](obj.$unpack("H*").$first())['$<<'](">")}
+        else if (Opal.const_get_qualified(Opal.const_get_qualified(Opal.const_get_relative($nesting, 'PDF'), 'Core'), 'ByteString')['$===']($case)) {return $rb_plus($rb_plus("<", obj.$unpack("H*").$first()), ">")}
         else if (Opal.const_get_relative($nesting, 'String')['$===']($case)) {
         if ($truthy(in_content_stream)) {
           } else {
           obj = self.$utf8_to_utf16(obj)
         };
-        return "<"['$<<'](self.$string_to_hex(obj))['$<<'](">");}
+        return $rb_plus($rb_plus("<", self.$string_to_hex(obj)), ">");}
         else if (Opal.const_get_relative($nesting, 'Symbol')['$===']($case)) {return $rb_plus("/", $send(obj.$to_s().$unpack("C*"), 'map', [], (TMP_9 = function(n){var self = TMP_9.$$s || this, $a, $b;
 if (n == null) n = nil;
         if ($truthy(($truthy($a = ($truthy($b = $rb_lt(n, 33)) ? $b : $rb_gt(n, 126))) ? $a : [35, 40, 41, 47, 60, 62]['$include?'](n)))) {
@@ -4474,13 +4476,16 @@ if (k == null) k = nil;if (v == null) v = nil;
             } else {
             self.$raise(Opal.const_get_qualified(Opal.const_get_qualified(Opal.const_get_qualified(Opal.const_get_relative($nesting, 'PDF'), 'Core'), 'Errors'), 'FailedObjectConversion'), "A PDF Dictionary must be keyed by names")
           };
-          return output['$<<'](self.$pdf_object(k.$to_sym(), in_content_stream))['$<<'](" ")['$<<'](self.$pdf_object(v, in_content_stream))['$<<']("\n");}, TMP_10.$$s = self, TMP_10.$$arity = 2, TMP_10));
-        return output['$<<'](">>");}
+          output = $rb_plus(output, self.$pdf_object(k.$to_sym(), in_content_stream));
+          output = $rb_plus(output, " ");
+          output = $rb_plus(output, self.$pdf_object(v, in_content_stream));
+          return (output = $rb_plus(output, "\\n"));}, TMP_10.$$s = self, TMP_10.$$arity = 2, TMP_10));
+        return (output = $rb_plus(output, ">>"));}
         else if (Opal.const_get_qualified(Opal.const_get_qualified(Opal.const_get_relative($nesting, 'PDF'), 'Core'), 'Reference')['$===']($case)) {return obj.$to_s()}
         else if (Opal.const_get_qualified(Opal.const_get_qualified(Opal.const_get_qualified(Opal.const_get_relative($nesting, 'PDF'), 'Core'), 'NameTree'), 'Node')['$===']($case)) {return self.$pdf_object(obj.$to_hash())}
         else if (Opal.const_get_qualified(Opal.const_get_qualified(Opal.const_get_qualified(Opal.const_get_relative($nesting, 'PDF'), 'Core'), 'NameTree'), 'Value')['$===']($case)) {return $rb_plus($rb_plus(self.$pdf_object(obj.$name()), " "), self.$pdf_object(obj.$value()))}
         else if (Opal.const_get_qualified(Opal.const_get_qualified(Opal.const_get_relative($nesting, 'PDF'), 'Core'), 'OutlineRoot')['$===']($case) || Opal.const_get_qualified(Opal.const_get_qualified(Opal.const_get_relative($nesting, 'PDF'), 'Core'), 'OutlineItem')['$===']($case)) {return self.$pdf_object(obj.$to_hash())}
-        else {return self.$raise(Opal.const_get_qualified(Opal.const_get_qualified(Opal.const_get_qualified(Opal.const_get_relative($nesting, 'PDF'), 'Core'), 'Errors'), 'FailedObjectConversion'), "" + "This object cannot be serialized to PDF (" + (obj.$inspect()) + ")")}})()
+        else {return self.$raise(Opal.const_get_qualified(Opal.const_get_qualified(Opal.const_get_qualified(Opal.const_get_relative($nesting, 'PDF'), 'Core'), 'Errors'), 'FailedObjectConversion'), "" + "This object cannot be serialized to PDF (" + (obj.$inspect()) + ")")}})();
       }, TMP_Core_pdf_object_11.$$arity = -2);
     })($nesting[0], $nesting)
   })($nesting[0], $nesting)
@@ -4802,12 +4807,15 @@ Opal.modules["pdf/core/filters"] = function(Opal) {
 
 /* Generated by Opal 0.11.0 */
 Opal.modules["pdf/core/stream"] = function(Opal) {
+  function $rb_plus(lhs, rhs) {
+    return (typeof(lhs) === 'number' && typeof(rhs) === 'number') ? lhs + rhs : lhs['$+'](rhs);
+  }
   function $rb_minus(lhs, rhs) {
     return (typeof(lhs) === 'number' && typeof(rhs) === 'number') ? lhs - rhs : lhs['$-'](rhs);
   }
   var self = Opal.top, $nesting = [], nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $module = Opal.module, $klass = Opal.klass, $truthy = Opal.truthy, $send = Opal.send, $hash2 = Opal.hash2;
 
-  Opal.add_stubs(['$attr_reader', '$new', '$<<', '$include?', '$names', '$nil?', '$dup', '$each', '$const_get', '$encode', '$length', '$filtered_stream', '$decode_params', '$any?', '$[]=', '$-', '$!', '$name', '$class', '$format', '$object_id', '$inspect']);
+  Opal.add_stubs(['$attr_reader', '$new', '$+', '$include?', '$names', '$<<', '$nil?', '$dup', '$each', '$const_get', '$encode', '$length', '$filtered_stream', '$decode_params', '$any?', '$[]=', '$-', '$!', '$name', '$class', '$format', '$object_id', '$inspect']);
   return (function($base, $parent_nesting) {
     var $PDF, self = $PDF = $module($base, 'PDF');
 
@@ -4844,7 +4852,7 @@ Opal.modules["pdf/core/stream"] = function(Opal) {
           var $a, self = this;
 
           
-          (self.stream = ($truthy($a = self.stream) ? $a : ""))['$<<'](io);
+          self.stream = $rb_plus((self.stream = ($truthy($a = self.stream) ? $a : "")), io);
           self.filtered_stream = nil;
           return self;
         }, TMP_Stream_$lt$lt_2.$$arity = 1);
@@ -5001,7 +5009,7 @@ Opal.modules["pdf/core/reference"] = function(Opal) {
   }
   var self = Opal.top, $nesting = [], nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $module = Opal.module, $klass = Opal.klass, $truthy = Opal.truthy, $send = Opal.send;
 
-  Opal.add_stubs(['$require', '$attr_accessor', '$new', '$gen', '$empty?', '$<<', '$pdf_object', '$data', '$merge', '$object', '$is_a?', '$raise', '$dup', '$===', '$each', '$-', '$keys', '$deep_clone', '$[]', '$[]=', '$deep_copy', '$data=', '$stream', '$stream=']);
+  Opal.add_stubs(['$require', '$attr_accessor', '$new', '$<<', '$gen', '$empty?', '$p', '$pdf_object', '$data', '$merge', '$object', '$join', '$is_a?', '$raise', '$dup', '$===', '$each', '$-', '$keys', '$deep_clone', '$[]', '$[]=', '$deep_copy', '$data=', '$stream', '$stream=']);
   
   self.$require("pdf/core/utils");
   return (function($base, $parent_nesting) {
@@ -5038,13 +5046,22 @@ Opal.modules["pdf/core/reference"] = function(Opal) {
           var self = this, output = nil;
 
           
-          output = "" + (self.identifier) + " " + (self.$gen()) + " obj\n";
+          output = [];
+          output['$<<']("" + (self.identifier) + " " + (self.$gen()) + " obj");
           if ($truthy(self.stream['$empty?']())) {
-            output['$<<'](Opal.const_get_qualified(Opal.const_get_relative($nesting, 'PDF'), 'Core').$pdf_object(self.$data()))['$<<']("\n")
+            
+            self.$p("1");
+            output['$<<'](Opal.const_get_qualified(Opal.const_get_relative($nesting, 'PDF'), 'Core').$pdf_object(self.$data()));
             } else {
-            output['$<<'](Opal.const_get_qualified(Opal.const_get_relative($nesting, 'PDF'), 'Core').$pdf_object(self.$data().$merge(self.stream.$data())))['$<<']("\n")['$<<'](self.stream.$object())
+            
+            self.$p("2");
+            output['$<<'](Opal.const_get_qualified(Opal.const_get_relative($nesting, 'PDF'), 'Core').$pdf_object(self.$data().$merge(self.stream.$data())));
+            output['$<<'](self.stream.$object());
           };
-          return output['$<<']("endobj\n");
+          self.$p("3");
+          output['$<<']("endobj");
+          output.$join("\\n");
+          return self.$p("4");
         }, TMP_Reference_object_2.$$arity = 0);
         
         Opal.defn(self, '$<<', TMP_Reference_$lt$lt_3 = function(io) {
@@ -5809,7 +5826,7 @@ Opal.modules["pdf/core/document_state"] = function(Opal) {
   }
   var self = Opal.top, $nesting = [], nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $module = Opal.module, $klass = Opal.klass, $truthy = Opal.truthy, $hash2 = Opal.hash2, $send = Opal.send;
 
-  Opal.add_stubs(['$normalize_metadata', '$[]', '$new', '$fetch', '$attr_accessor', '$<=', '$page_count', '$!', '$empty?', '$map', '$object_id_for_page', '$[]=', '$-', '$insert', '$pages', '$data', '$store', '$dictionary', '$+', '$on_page_create_callback', '$each', '$before_render_callbacks', '$call', '$length', '$size', '$offset=', '$<<', '$encrypted_object', '$object']);
+  Opal.add_stubs(['$normalize_metadata', '$[]', '$new', '$fetch', '$attr_accessor', '$<=', '$page_count', '$!', '$empty?', '$map', '$object_id_for_page', '$[]=', '$-', '$insert', '$pages', '$data', '$store', '$dictionary', '$+', '$on_page_create_callback', '$each', '$before_render_callbacks', '$call', '$length', '$<<', '$object', '$p']);
   return (function($base, $parent_nesting) {
     var $PDF, self = $PDF = $module($base, 'PDF');
 
@@ -5921,20 +5938,11 @@ if (c == null) c = nil;
         return (Opal.defn(self, '$render_body', TMP_DocumentState_render_body_11 = function $$render_body(output) {
           var TMP_10, self = this;
 
-          return $send(self.$store(), 'each', [], (TMP_10 = function(ref){var self = TMP_10.$$s || this, $writer = nil;
-            if (self.encrypt == null) self.encrypt = nil;
-            if (self.encryption_key == null) self.encryption_key = nil;
-if (ref == null) ref = nil;
           
-            
-            $writer = [output.$size()];
-            $send(ref, 'offset=', Opal.to_a($writer));
-            $writer[$rb_minus($writer["length"], 1)];;
-            return output['$<<']((function() {if ($truthy(self.encrypt)) {
-              return ref.$encrypted_object(self.encryption_key)
-              } else {
-              return ref.$object()
-            }; return nil; })());}, TMP_10.$$s = self, TMP_10.$$arity = 1, TMP_10))
+          $send(self.$store(), 'each', [], (TMP_10 = function(ref){var self = TMP_10.$$s || this;
+if (ref == null) ref = nil;
+          return (output = output['$<<'](ref.$object()))}, TMP_10.$$s = self, TMP_10.$$arity = 1, TMP_10));
+          return self.$p("end");
         }, TMP_DocumentState_render_body_11.$$arity = 1), nil) && 'render_body';
       })($nesting[0], null, $nesting)
     })($nesting[0], $nesting)
@@ -6389,7 +6397,7 @@ Opal.modules["pdf/core/renderer"] = function(Opal) {
   }
   var self = Opal.top, $nesting = [], nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $module = Opal.module, $klass = Opal.klass, $truthy = Opal.truthy, $hash2 = Opal.hash2, $send = Opal.send;
 
-  Opal.add_stubs(['$require', '$populate_pages_from_store', '$min_version', '$store', '$attr_reader', '$identifier', '$ref!', '$ref', '$state', '$is_a?', '$data', '$nil?', '$graphic_state', '$save_graphics_state', '$<<', '$content', '$page', '$root', '$[]', '$[]=', '$-', '$before_render_callbacks', '$on_page_create_callback=', '$size', '$layout', '$margins', '$dup', '$color_space=', '$new', '$page=', '$insert_page', '$+', '$on_page_create_action', '$page_count', '$pages', '$each', '$go_to_page', '$present?', '$graphic_stack', '$restore_graphics_state', '$finalize', '$>', '$version', '$version=', '$instance_of?', '$set_encoding', '$finalize_all_page_contents', '$render_header', '$render_body', '$render_xref', '$render_trailer', '$string', '$force_encoding', '$open', '$render', '$before_render_actions', '$printf', '$offset', '$info', '$trailer', '$merge!', '$pdf_object', '$add_content', '$save_graphic_state', '$open_graphics_state', '$compress', '$empty?', '$raise', '$close_graphics_state', '$restore_graphic_state', '$stack', '$current_state']);
+  Opal.add_stubs(['$require', '$populate_pages_from_store', '$min_version', '$store', '$attr_reader', '$identifier', '$ref!', '$ref', '$state', '$is_a?', '$data', '$nil?', '$graphic_state', '$save_graphics_state', '$<<', '$content', '$page', '$root', '$[]', '$[]=', '$-', '$before_render_callbacks', '$on_page_create_callback=', '$dup', '$color_space=', '$new', '$page=', '$insert_page', '$+', '$on_page_create_action', '$page_count', '$pages', '$each', '$go_to_page', '$present?', '$graphic_stack', '$restore_graphics_state', '$finalize', '$>', '$version', '$version=', '$instance_of?', '$set_encoding', '$finalize_all_page_contents', '$render_header', '$p', '$render_body', '$render_xref', '$render_trailer', '$string', '$force_encoding', '$open', '$render', '$before_render_actions', '$printf', '$info', '$trailer', '$merge!', '$pdf_object', '$add_content', '$save_graphic_state', '$open_graphics_state', '$compress', '$empty?', '$raise', '$close_graphics_state', '$restore_graphic_state', '$stack', '$current_state']);
   
   self.$require("stringio");
   return (function($base, $parent_nesting) {
@@ -6499,9 +6507,9 @@ Opal.modules["pdf/core/renderer"] = function(Opal) {
           last_page = self.$state().$page();
           if ($truthy(last_page)) {
             
-            last_page_size = last_page.$size();
-            last_page_layout = last_page.$layout();
-            last_page_margins = last_page.$margins();};
+            last_page_size = nil;
+            last_page_layout = nil;
+            last_page_margins = nil;};
           page_options = $hash2(["size", "layout", "margins"], {"size": ($truthy($a = options['$[]']("size")) ? $a : last_page_size), "layout": ($truthy($a = options['$[]']("layout")) ? $a : last_page_layout), "margins": last_page_margins});
           if ($truthy(last_page)) {
             
@@ -6579,9 +6587,13 @@ if (i == null) i = nil;
             output.$set_encoding(Opal.const_get_qualified(Opal.const_get_qualified('::', 'Encoding'), 'ASCII_8BIT'))};
           self.$finalize_all_page_contents();
           self.$render_header(output);
+          self.$p("10");
           self.$render_body(output);
+          self.$p("11");
           self.$render_xref(output);
+          self.$p("12");
           self.$render_trailer(output);
+          self.$p("13");
           if ($truthy(output['$instance_of?'](Opal.const_get_relative($nesting, 'StringIO')))) {
             
             str = output.$string();
@@ -6606,7 +6618,7 @@ if (f == null) f = nil;
           
           self.$state().$before_render_actions(self);
           output['$<<']("" + "%PDF-" + (self.$state().$version()) + "\n");
-          return output['$<<']("%0xFF0xFF0xFF0xFF\n");
+          return output['$<<']("%¥±ë\n");
         }, TMP_Renderer_render_header_19.$$arity = 1);
         
         Opal.defn(self, '$render_body', TMP_Renderer_render_body_20 = function $$render_body(output) {
@@ -6619,14 +6631,14 @@ if (f == null) f = nil;
           var TMP_21, self = this;
 
           
-          self.xref_offset = output.$size();
+          self.xref_offset = 12;
           output['$<<']("xref\n");
-          output['$<<']("" + "0 " + ($rb_plus(self.$state().$store().$size(), 1)) + "\n");
+          output['$<<']("0 12\n");
           output['$<<']("0000000000 65535 f \n");
           return $send(self.$state().$store(), 'each', [], (TMP_21 = function(ref){var self = TMP_21.$$s || this;
 if (ref == null) ref = nil;
           
-            output.$printf("%010d", ref.$offset());
+            output.$printf("%010d", 12);
             return output['$<<'](" 00000 n \n");}, TMP_21.$$s = self, TMP_21.$$arity = 1, TMP_21));
         }, TMP_Renderer_render_xref_22.$$arity = 1);
         
@@ -6634,7 +6646,7 @@ if (ref == null) ref = nil;
           var self = this, trailer_hash = nil;
 
           
-          trailer_hash = $hash2(["Size", "Root", "Info"], {"Size": $rb_plus(self.$state().$store().$size(), 1), "Root": self.$state().$store().$root(), "Info": self.$state().$store().$info()});
+          trailer_hash = $hash2(["Size", "Root", "Info"], {"Size": 12, "Root": self.$state().$store().$root(), "Info": self.$state().$store().$info()});
           if ($truthy(self.$state().$trailer())) {
             trailer_hash['$merge!'](self.$state().$trailer())};
           output['$<<']("trailer\n");
@@ -7816,7 +7828,7 @@ Opal.modules["prawn/text/formatted/arranger"] = function(Opal) {
   }
   var self = Opal.top, $nesting = [], nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $module = Opal.module, $klass = Opal.klass, $hash2 = Opal.hash2, $truthy = Opal.truthy, $send = Opal.send;
 
-  Opal.add_stubs(['$attr_reader', '$attr_accessor', '$[]', '$finalized', '$fail', '$inject', '$+', '$space_count', '$width', '$join', '$collect', '$force_encoding', '$dup', '$text', '$omit_trailing_whitespace_from_line_width', '$each', '$delete', '$new', '$<<', '$set_fragment_measurements', '$set_line_measurement_maximums', '$initialize_line', '$scan', '$merge', '$==', '$length', '$shift', '$first', '$color', '$fill_color', '$stroke_color', '$apply_font_settings', '$to_proc', '$stroke_color=', '$-', '$fill_color=', '$nil?', '$current_format_state', '$character_spacing', '$font_style', '$font', '$size', '$styles', '$!=', '$family', '$apply_font_size', '$empty?', '$pop', '$[]=', '$last', '$unshift', '$load_previous_format_state', '$retrieve_fragment', '$include_trailing_white_space!', '$format_state', '$concat', '$include?', '$private', '$subscript?', '$superscript?', '$*', '$font_size', '$reverse_each', '$strip', '$>', '$width_of', '$width=', '$height', '$line_height=', '$descender', '$descender=', '$ascender', '$ascender=', '$max', '$compact', '$line_height']);
+  Opal.add_stubs(['$attr_reader', '$attr_accessor', '$[]', '$finalized', '$fail', '$inject', '$+', '$space_count', '$width', '$join', '$collect', '$force_encoding', '$dup', '$text', '$omit_trailing_whitespace_from_line_width', '$each', '$delete', '$new', '$<<', '$set_fragment_measurements', '$set_line_measurement_maximums', '$initialize_line', '$==', '$length', '$shift', '$first', '$color', '$fill_color', '$stroke_color', '$apply_font_settings', '$to_proc', '$stroke_color=', '$-', '$fill_color=', '$nil?', '$current_format_state', '$character_spacing', '$font_style', '$font', '$p', '$size', '$styles', '$!=', '$family', '$apply_font_size', '$empty?', '$pop', '$[]=', '$last', '$unshift', '$merge', '$load_previous_format_state', '$retrieve_fragment', '$include_trailing_white_space!', '$format_state', '$concat', '$include?', '$private', '$subscript?', '$superscript?', '$*', '$font_size', '$reverse_each', '$strip', '$>', '$width_of', '$width=', '$height', '$line_height=', '$descender', '$descender=', '$ascender', '$ascender=', '$max', '$compact', '$line_height']);
   return (function($base, $parent_nesting) {
     var $Prawn, self = $Prawn = $module($base, 'Prawn');
 
@@ -7836,7 +7848,7 @@ Opal.modules["prawn/text/formatted/arranger"] = function(Opal) {
           function $Arranger(){};
           var self = $Arranger = $klass($base, $super, 'Arranger', $Arranger);
 
-          var def = self.$$proto, $nesting = [self].concat($parent_nesting), TMP_Arranger_initialize_1, TMP_Arranger_space_count_3, TMP_Arranger_line_width_5, TMP_Arranger_line_7, TMP_Arranger_finalize_line_9, TMP_Arranger_format_array$eq_12, TMP_Arranger_initialize_line_13, TMP_Arranger_finished$q_14, TMP_Arranger_next_string_15, TMP_Arranger_preview_next_string_16, TMP_Arranger_apply_color_and_font_settings_17, TMP_Arranger_apply_font_settings_18, TMP_Arranger_update_last_string_21, TMP_Arranger_retrieve_fragment_22, TMP_Arranger_repack_unretrieved_23, TMP_Arranger_font_style_24, TMP_Arranger_load_previous_format_state_25, TMP_Arranger_apply_font_size_26, TMP_Arranger_subscript$q_28, TMP_Arranger_superscript$q_29, TMP_Arranger_omit_trailing_whitespace_from_line_width_31, TMP_Arranger_set_fragment_measurements_33, TMP_Arranger_set_line_measurement_maximums_34;
+          var def = self.$$proto, $nesting = [self].concat($parent_nesting), TMP_Arranger_initialize_1, TMP_Arranger_space_count_3, TMP_Arranger_line_width_5, TMP_Arranger_line_7, TMP_Arranger_finalize_line_9, TMP_Arranger_format_array$eq_10, TMP_Arranger_initialize_line_11, TMP_Arranger_finished$q_12, TMP_Arranger_next_string_13, TMP_Arranger_preview_next_string_14, TMP_Arranger_apply_color_and_font_settings_15, TMP_Arranger_apply_font_settings_16, TMP_Arranger_update_last_string_19, TMP_Arranger_retrieve_fragment_20, TMP_Arranger_repack_unretrieved_21, TMP_Arranger_font_style_22, TMP_Arranger_load_previous_format_state_23, TMP_Arranger_apply_font_size_24, TMP_Arranger_subscript$q_26, TMP_Arranger_superscript$q_27, TMP_Arranger_omit_trailing_whitespace_from_line_width_29, TMP_Arranger_set_fragment_measurements_31, TMP_Arranger_set_line_measurement_maximums_32;
 
           def.fragments = def.consumed = def.unconsumed = def.current_format_state = def.document = def.max_line_height = def.max_descender = def.max_ascender = nil;
           
@@ -7922,21 +7934,15 @@ if (hash == null) hash = nil;
               return self.$set_line_measurement_maximums(fragment);}, TMP_8.$$s = self, TMP_8.$$arity = 1, TMP_8));
           }, TMP_Arranger_finalize_line_9.$$arity = 0);
           
-          Opal.defn(self, '$format_array=', TMP_Arranger_format_array$eq_12 = function(array) {
-            var TMP_10, self = this;
+          Opal.defn(self, '$format_array=', TMP_Arranger_format_array$eq_10 = function(array) {
+            var self = this;
 
             
             self.$initialize_line();
-            self.unconsumed = [];
-            return $send(array, 'each', [], (TMP_10 = function(hash){var self = TMP_10.$$s || this, TMP_11;
-if (hash == null) hash = nil;
-            return $send(hash['$[]']("text"), 'scan', [/[^\n]+|\n/], (TMP_11 = function(line){var self = TMP_11.$$s || this;
-                if (self.unconsumed == null) self.unconsumed = nil;
-if (line == null) line = nil;
-              return self.unconsumed['$<<'](hash.$merge($hash2(["text"], {"text": line})))}, TMP_11.$$s = self, TMP_11.$$arity = 1, TMP_11))}, TMP_10.$$s = self, TMP_10.$$arity = 1, TMP_10));
-          }, TMP_Arranger_format_array$eq_12.$$arity = 1);
+            return (self.unconsumed = []);
+          }, TMP_Arranger_format_array$eq_10.$$arity = 1);
           
-          Opal.defn(self, '$initialize_line', TMP_Arranger_initialize_line_13 = function $$initialize_line() {
+          Opal.defn(self, '$initialize_line', TMP_Arranger_initialize_line_11 = function $$initialize_line() {
             var self = this;
 
             
@@ -7946,15 +7952,15 @@ if (line == null) line = nil;
             self.max_ascender = 0;
             self.consumed = [];
             return (self.fragments = []);
-          }, TMP_Arranger_initialize_line_13.$$arity = 0);
+          }, TMP_Arranger_initialize_line_11.$$arity = 0);
           
-          Opal.defn(self, '$finished?', TMP_Arranger_finished$q_14 = function() {
+          Opal.defn(self, '$finished?', TMP_Arranger_finished$q_12 = function() {
             var self = this;
 
             return self.unconsumed.$length()['$=='](0)
-          }, TMP_Arranger_finished$q_14.$$arity = 0);
+          }, TMP_Arranger_finished$q_12.$$arity = 0);
           
-          Opal.defn(self, '$next_string', TMP_Arranger_next_string_15 = function $$next_string() {
+          Opal.defn(self, '$next_string', TMP_Arranger_next_string_13 = function $$next_string() {
             var self = this, next_unconsumed_hash = nil;
 
             
@@ -7970,9 +7976,9 @@ if (line == null) line = nil;
               } else {
               return nil
             };
-          }, TMP_Arranger_next_string_15.$$arity = 0);
+          }, TMP_Arranger_next_string_13.$$arity = 0);
           
-          Opal.defn(self, '$preview_next_string', TMP_Arranger_preview_next_string_16 = function $$preview_next_string() {
+          Opal.defn(self, '$preview_next_string', TMP_Arranger_preview_next_string_14 = function $$preview_next_string() {
             var self = this, next_unconsumed_hash = nil;
 
             
@@ -7982,12 +7988,12 @@ if (line == null) line = nil;
               } else {
               return nil
             };
-          }, TMP_Arranger_preview_next_string_16.$$arity = 0);
+          }, TMP_Arranger_preview_next_string_14.$$arity = 0);
           
-          Opal.defn(self, '$apply_color_and_font_settings', TMP_Arranger_apply_color_and_font_settings_17 = function $$apply_color_and_font_settings(fragment) {
-            var self = this, $iter = TMP_Arranger_apply_color_and_font_settings_17.$$p, block = $iter || nil, original_fill_color = nil, original_stroke_color = nil, $writer = nil;
+          Opal.defn(self, '$apply_color_and_font_settings', TMP_Arranger_apply_color_and_font_settings_15 = function $$apply_color_and_font_settings(fragment) {
+            var self = this, $iter = TMP_Arranger_apply_color_and_font_settings_15.$$p, block = $iter || nil, original_fill_color = nil, original_stroke_color = nil, $writer = nil;
 
-            if ($iter) TMP_Arranger_apply_color_and_font_settings_17.$$p = null;
+            if ($iter) TMP_Arranger_apply_color_and_font_settings_15.$$p = null;
             if ($truthy(fragment.$color())) {
               
               original_fill_color = self.document.$fill_color();
@@ -8006,15 +8012,15 @@ if (line == null) line = nil;
               } else {
               return $send(self, 'apply_font_settings', [fragment], block.$to_proc())
             }
-          }, TMP_Arranger_apply_color_and_font_settings_17.$$arity = 1);
+          }, TMP_Arranger_apply_color_and_font_settings_15.$$arity = 1);
           
-          Opal.defn(self, '$apply_font_settings', TMP_Arranger_apply_font_settings_18 = function $$apply_font_settings(fragment) {
-            var $a, TMP_19, self = this, $iter = TMP_Arranger_apply_font_settings_18.$$p, block = $iter || nil, font = nil, size = nil, character_spacing = nil, styles = nil, font_style = nil;
+          Opal.defn(self, '$apply_font_settings', TMP_Arranger_apply_font_settings_16 = function $$apply_font_settings(fragment) {
+            var $a, TMP_17, self = this, $iter = TMP_Arranger_apply_font_settings_16.$$p, block = $iter || nil, font = nil, size = nil, character_spacing = nil, styles = nil, font_style = nil;
 
             if (fragment == null) {
               fragment = nil;
             }
-            if ($iter) TMP_Arranger_apply_font_settings_18.$$p = null;
+            if ($iter) TMP_Arranger_apply_font_settings_16.$$p = null;
             
             if ($truthy(fragment['$nil?']())) {
               
@@ -8026,12 +8032,14 @@ if (line == null) line = nil;
               } else {
               
               font = fragment.$font();
+              self.$p("size1");
               size = fragment.$size();
+              self.$p("size2");
               character_spacing = fragment.$character_spacing();
               styles = fragment.$styles();
               font_style = self.$font_style(styles);
             };
-            return $send(self.document, 'character_spacing', [character_spacing], (TMP_19 = function(){var self = TMP_19.$$s || this, $b, TMP_20;
+            return $send(self.document, 'character_spacing', [character_spacing], (TMP_17 = function(){var self = TMP_17.$$s || this, $b, TMP_18;
               if (self.document == null) self.document = nil;
 
             if ($truthy(($truthy($b = font) ? $b : font_style['$!=']("normal")))) {
@@ -8040,15 +8048,15 @@ if (line == null) line = nil;
                   } else {
                   self.$fail("Bad font family")
                 };
-                return $send(self.document, 'font', [($truthy($b = font) ? $b : self.document.$font().$family()), $hash2(["style"], {"style": font_style})], (TMP_20 = function(){var self = TMP_20.$$s || this;
+                return $send(self.document, 'font', [($truthy($b = font) ? $b : self.document.$font().$family()), $hash2(["style"], {"style": font_style})], (TMP_18 = function(){var self = TMP_18.$$s || this;
 
-                return $send(self, 'apply_font_size', [size, styles], block.$to_proc())}, TMP_20.$$s = self, TMP_20.$$arity = 0, TMP_20));
+                return $send(self, 'apply_font_size', [size, styles], block.$to_proc())}, TMP_18.$$s = self, TMP_18.$$arity = 0, TMP_18));
                 } else {
                 return $send(self, 'apply_font_size', [size, styles], block.$to_proc())
-              }}, TMP_19.$$s = self, TMP_19.$$arity = 0, TMP_19));
-          }, TMP_Arranger_apply_font_settings_18.$$arity = -1);
+              }}, TMP_17.$$s = self, TMP_17.$$arity = 0, TMP_17));
+          }, TMP_Arranger_apply_font_settings_16.$$arity = -1);
           
-          Opal.defn(self, '$update_last_string', TMP_Arranger_update_last_string_21 = function $$update_last_string(printed, unprinted, normalized_soft_hyphen) {
+          Opal.defn(self, '$update_last_string', TMP_Arranger_update_last_string_19 = function $$update_last_string(printed, unprinted, normalized_soft_hyphen) {
             var self = this, $writer = nil;
 
             if (normalized_soft_hyphen == null) {
@@ -8080,9 +8088,9 @@ if (line == null) line = nil;
               } else {
               return nil
             };
-          }, TMP_Arranger_update_last_string_21.$$arity = -3);
+          }, TMP_Arranger_update_last_string_19.$$arity = -3);
           
-          Opal.defn(self, '$retrieve_fragment', TMP_Arranger_retrieve_fragment_22 = function $$retrieve_fragment() {
+          Opal.defn(self, '$retrieve_fragment', TMP_Arranger_retrieve_fragment_20 = function $$retrieve_fragment() {
             var self = this;
 
             
@@ -8091,9 +8099,9 @@ if (line == null) line = nil;
               self.$fail("Lines must be finalized before fragments can be retrieved")
             };
             return self.fragments.$shift();
-          }, TMP_Arranger_retrieve_fragment_22.$$arity = 0);
+          }, TMP_Arranger_retrieve_fragment_20.$$arity = 0);
           
-          Opal.defn(self, '$repack_unretrieved', TMP_Arranger_repack_unretrieved_23 = function $$repack_unretrieved() {
+          Opal.defn(self, '$repack_unretrieved', TMP_Arranger_repack_unretrieved_21 = function $$repack_unretrieved() {
             var $a, self = this, new_unconsumed = nil, fragment = nil;
 
             
@@ -8104,9 +8112,9 @@ if (line == null) line = nil;
               new_unconsumed['$<<'](fragment.$format_state().$merge($hash2(["text"], {"text": fragment.$text()})));
             };
             return (self.unconsumed = new_unconsumed.$concat(self.unconsumed));
-          }, TMP_Arranger_repack_unretrieved_23.$$arity = 0);
+          }, TMP_Arranger_repack_unretrieved_21.$$arity = 0);
           
-          Opal.defn(self, '$font_style', TMP_Arranger_font_style_24 = function $$font_style(styles) {
+          Opal.defn(self, '$font_style', TMP_Arranger_font_style_22 = function $$font_style(styles) {
             var $a, self = this;
 
             if ($truthy(styles['$nil?']())) {
@@ -8120,10 +8128,10 @@ if (line == null) line = nil;
               } else {
               return "normal"
             }
-          }, TMP_Arranger_font_style_24.$$arity = 1);
+          }, TMP_Arranger_font_style_22.$$arity = 1);
           self.$private();
           
-          Opal.defn(self, '$load_previous_format_state', TMP_Arranger_load_previous_format_state_25 = function $$load_previous_format_state() {
+          Opal.defn(self, '$load_previous_format_state', TMP_Arranger_load_previous_format_state_23 = function $$load_previous_format_state() {
             var self = this, hash = nil;
 
             if ($truthy(self.consumed['$empty?']())) {
@@ -8134,12 +8142,12 @@ if (line == null) line = nil;
               self.current_format_state = hash.$dup();
               return self.current_format_state.$delete("text");
             }
-          }, TMP_Arranger_load_previous_format_state_25.$$arity = 0);
+          }, TMP_Arranger_load_previous_format_state_23.$$arity = 0);
           
-          Opal.defn(self, '$apply_font_size', TMP_Arranger_apply_font_size_26 = function $$apply_font_size(size, styles) {
-            var $a, TMP_27, self = this, $iter = TMP_Arranger_apply_font_size_26.$$p, $yield = $iter || nil, relative_size = nil;
+          Opal.defn(self, '$apply_font_size', TMP_Arranger_apply_font_size_24 = function $$apply_font_size(size, styles) {
+            var $a, TMP_25, self = this, $iter = TMP_Arranger_apply_font_size_24.$$p, $yield = $iter || nil, relative_size = nil;
 
-            if ($iter) TMP_Arranger_apply_font_size_26.$$p = null;
+            if ($iter) TMP_Arranger_apply_font_size_24.$$p = null;
             
             if ($truthy(($truthy($a = self['$subscript?'](styles)) ? $a : self['$superscript?'](styles)))) {
               
@@ -8152,13 +8160,13 @@ if (line == null) line = nil;
             if ($truthy(size['$nil?']())) {
               return Opal.yieldX($yield, []);
               } else {
-              return $send(self.document, 'font_size', [size], (TMP_27 = function(){var self = TMP_27.$$s || this;
+              return $send(self.document, 'font_size', [size], (TMP_25 = function(){var self = TMP_25.$$s || this;
 
-              return Opal.yieldX($yield, []);}, TMP_27.$$s = self, TMP_27.$$arity = 0, TMP_27))
+              return Opal.yieldX($yield, []);}, TMP_25.$$s = self, TMP_25.$$arity = 0, TMP_25))
             };
-          }, TMP_Arranger_apply_font_size_26.$$arity = 2);
+          }, TMP_Arranger_apply_font_size_24.$$arity = 2);
           
-          Opal.defn(self, '$subscript?', TMP_Arranger_subscript$q_28 = function(styles) {
+          Opal.defn(self, '$subscript?', TMP_Arranger_subscript$q_26 = function(styles) {
             var self = this;
 
             if ($truthy(styles['$nil?']())) {
@@ -8166,9 +8174,9 @@ if (line == null) line = nil;
               } else {
               return styles['$include?']("subscript")
             }
-          }, TMP_Arranger_subscript$q_28.$$arity = 1);
+          }, TMP_Arranger_subscript$q_26.$$arity = 1);
           
-          Opal.defn(self, '$superscript?', TMP_Arranger_superscript$q_29 = function(styles) {
+          Opal.defn(self, '$superscript?', TMP_Arranger_superscript$q_27 = function(styles) {
             var self = this;
 
             if ($truthy(styles['$nil?']())) {
@@ -8176,12 +8184,12 @@ if (line == null) line = nil;
               } else {
               return styles['$include?']("superscript")
             }
-          }, TMP_Arranger_superscript$q_29.$$arity = 1);
+          }, TMP_Arranger_superscript$q_27.$$arity = 1);
           
-          Opal.defn(self, '$omit_trailing_whitespace_from_line_width', TMP_Arranger_omit_trailing_whitespace_from_line_width_31 = function $$omit_trailing_whitespace_from_line_width() {
-            var TMP_30, self = this;
+          Opal.defn(self, '$omit_trailing_whitespace_from_line_width', TMP_Arranger_omit_trailing_whitespace_from_line_width_29 = function $$omit_trailing_whitespace_from_line_width() {
+            var TMP_28, self = this;
 
-            return (function(){var $brk = Opal.new_brk(); try {return $send(self.consumed, 'reverse_each', [], (TMP_30 = function(hash){var self = TMP_30.$$s || this, $a, $writer = nil;
+            return (function(){var $brk = Opal.new_brk(); try {return $send(self.consumed, 'reverse_each', [], (TMP_28 = function(hash){var self = TMP_28.$$s || this, $a, $writer = nil;
               if (self.consumed == null) self.consumed = nil;
 if (hash == null) hash = nil;
             if (hash['$[]']("text")['$==']("\n")) {
@@ -8200,14 +8208,14 @@ if (hash == null) hash = nil;
                 $writer[$rb_minus($writer["length"], 1)];;
                 
                 Opal.brk(nil, $brk);
-              }}, TMP_30.$$s = self, TMP_30.$$brk = $brk, TMP_30.$$arity = 1, TMP_30))
+              }}, TMP_28.$$s = self, TMP_28.$$brk = $brk, TMP_28.$$arity = 1, TMP_28))
             } catch (err) { if (err === $brk) { return err.$v } else { throw err } }})()
-          }, TMP_Arranger_omit_trailing_whitespace_from_line_width_31.$$arity = 0);
+          }, TMP_Arranger_omit_trailing_whitespace_from_line_width_29.$$arity = 0);
           
-          Opal.defn(self, '$set_fragment_measurements', TMP_Arranger_set_fragment_measurements_33 = function $$set_fragment_measurements(fragment) {
-            var TMP_32, self = this;
+          Opal.defn(self, '$set_fragment_measurements', TMP_Arranger_set_fragment_measurements_31 = function $$set_fragment_measurements(fragment) {
+            var TMP_30, self = this;
 
-            return $send(self, 'apply_font_settings', [fragment], (TMP_32 = function(){var self = TMP_32.$$s || this, $writer = nil;
+            return $send(self, 'apply_font_settings', [fragment], (TMP_30 = function(){var self = TMP_30.$$s || this, $writer = nil;
               if (self.document == null) self.document = nil;
               if (self.kerning == null) self.kerning = nil;
 
@@ -8227,16 +8235,16 @@ if (hash == null) hash = nil;
               
               $writer = [self.document.$font().$ascender()];
               $send(fragment, 'ascender=', Opal.to_a($writer));
-              return $writer[$rb_minus($writer["length"], 1)];;}, TMP_32.$$s = self, TMP_32.$$arity = 0, TMP_32))
-          }, TMP_Arranger_set_fragment_measurements_33.$$arity = 1);
-          return (Opal.defn(self, '$set_line_measurement_maximums', TMP_Arranger_set_line_measurement_maximums_34 = function $$set_line_measurement_maximums(fragment) {
+              return $writer[$rb_minus($writer["length"], 1)];;}, TMP_30.$$s = self, TMP_30.$$arity = 0, TMP_30))
+          }, TMP_Arranger_set_fragment_measurements_31.$$arity = 1);
+          return (Opal.defn(self, '$set_line_measurement_maximums', TMP_Arranger_set_line_measurement_maximums_32 = function $$set_line_measurement_maximums(fragment) {
             var $a, $b, $c, $d, self = this;
 
             
             self.max_line_height = [($truthy($a = (($b = self['max_line_height'], $b != null && $b !== nil) ? 'instance-variable' : nil)) ? self.max_line_height : $a), fragment.$line_height()].$compact().$max();
             self.max_descender = [($truthy($a = (($c = self['max_descender'], $c != null && $c !== nil) ? 'instance-variable' : nil)) ? self.max_descender : $a), fragment.$descender()].$compact().$max();
             return (self.max_ascender = [($truthy($a = (($d = self['max_ascender'], $d != null && $d !== nil) ? 'instance-variable' : nil)) ? self.max_ascender : $a), fragment.$ascender()].$compact().$max());
-          }, TMP_Arranger_set_line_measurement_maximums_34.$$arity = 1), nil) && 'set_line_measurement_maximums';
+          }, TMP_Arranger_set_line_measurement_maximums_32.$$arity = 1), nil) && 'set_line_measurement_maximums';
         })($nesting[0], null, $nesting)
       })($nesting[0], $nesting)
     })($nesting[0], $nesting)
@@ -12623,23 +12631,13 @@ if (k == null) k = nil;if (v == null) v = nil;
 };
 
 /* Generated by Opal 0.11.0 */
-Opal.modules["matrix"] = function(Opal) {
-  var self = Opal.top, $nesting = [], nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice;
-
-  Opal.add_stubs(['$raise']);
-  return self.$raise(Opal.const_get_relative($nesting, 'LoadError'), "can't find file: \"matrix\" in:\n- /home/guillaume/.rvm/gems/ruby-2.4.1@prawn.js/gems/opal-0.11.0/opal\n- /home/guillaume/.rvm/gems/ruby-2.4.1@prawn.js/gems/opal-0.11.0/stdlib\n- /home/guillaume/.rvm/gems/ruby-2.4.1@prawn.js/gems/opal-0.11.0/lib\n- /home/guillaume/.rvm/gems/ruby-2.4.1@prawn.js/gems/ast-2.3.0/lib\n- /home/guillaume/.rvm/gems/ruby-2.4.1@prawn.js/gems/ast-2.3.0/lib\n- /home/guillaume/.rvm/gems/ruby-2.4.1@prawn.js/gems/parser-2.3.3.1/lib\n- /home/guillaume/workspace/opensource/prawn.js/lib\n- /home/guillaume/workspace/opensource/prawn.js/lib/prawn\n- /home/guillaume/workspace/opensource/prawn.js/build/prawn/lib\n- /home/guillaume/workspace/opensource/prawn.js/build/ttfunk/lib\n- /home/guillaume/workspace/opensource/prawn.js/build/pdf-core/lib\n\nWith the following extensions:\n- .js\n- .js.js\n- .rb\n- .js.rb\n- .opal\n- .js.opal\n- .opalerb\n- .js.opalerb\n- .erb\n- .js.erb\n\nAnd the following processors:\n- Opal::BuilderProcessors::JsProcessor\n- Opal::BuilderProcessors::RubyProcessor\n- Opal::BuilderProcessors::OpalERBProcessor\n- Opal::BuilderProcessors::ERBProcessor\n")
-};
-
-/* Generated by Opal 0.11.0 */
 Opal.modules["prawn/transformation_stack"] = function(Opal) {
   function $rb_times(lhs, rhs) {
     return (typeof(lhs) === 'number' && typeof(rhs) === 'number') ? lhs * rhs : lhs['$*'](rhs);
   }
   var self = Opal.top, $nesting = [], nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $module = Opal.module, $truthy = Opal.truthy, $send = Opal.send, $range = Opal.range;
 
-  Opal.add_stubs(['$require', '$push', '$last', '$map', '$to_proc', '$dup', '$pop', '$identity', '$each', '$*', '$[]', '$flatten', '$transpose', '$to_a']);
-  
-  self.$require("matrix");
+  Opal.add_stubs(['$push', '$last', '$map', '$to_proc', '$dup', '$pop', '$identity', '$each', '$*', '$[]', '$flatten', '$transpose', '$to_a']);
   return (function($base, $parent_nesting) {
     var $Prawn, self = $Prawn = $module($base, 'Prawn');
 
@@ -12701,7 +12699,7 @@ if (a == null) a = nil;if (b == null) b = nil;if (c == null) c = nil;if (d == nu
         return matrix.$to_a()['$[]']($range(0, 1, false)).$transpose().$flatten();
       }, TMP_TransformationStack_current_transformation_matrix_with_translation_5.$$arity = -1);
     })($nesting[0], $nesting)
-  })($nesting[0], $nesting);
+  })($nesting[0], $nesting)
 };
 
 /* Generated by Opal 0.11.0 */
@@ -13541,7 +13539,7 @@ Opal.modules["prawn/document"] = function(Opal) {
   }
   var self = Opal.top, $nesting = [], nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $module = Opal.module, $klass = Opal.klass, $truthy = Opal.truthy, $send = Opal.send, $hash2 = Opal.hash2, $hash = Opal.hash;
 
-  Opal.add_stubs(['$require', '$include', '$each', '$extensions', '$<<', '$attr_accessor', '$attr_reader', '$new', '$to_proc', '$render_file', '$dup', '$verify_options', '$reverse_each', '$class', '$extend', '$state=', '$-', '$populate_pages_from_store', '$state', '$min_version', '$store', '$renderer', '$==', '$[]', '$delete', '$[]=', '$initialize_first_page', '$<', '$arity', '$instance_eval', '$page', '$size', '$layout', '$margins', '$graphic_state', '$color_space=', '$merge!', '$page=', '$apply_margin_options', '$generate_margin_box', '$!=', '$use_graphic_settings', '$insert_page', '$+', '$canvas', '$image', '$top_left', '$bounds', '$absolute_top', '$float', '$on_page_create_action', '$page_count', '$pages', '$update_height', '$y', '$absolute_bottom', '$y=', '$page_number', '$go_to_page', '$repeaters', '$run', '$render', '$open', '$reference_bounds', '$move_down', '$indent', '$to_i', '$key?', '$===', '$page_match?', '$nil?', '$fill_color', '$gsub', '$text_box', '$fail', '$odd?', '$even?', '$include?', '$call', '$send', '$start_new_page', '$merge', '$private', '$current_fill_color', '$set_fill_color', '$current_stroke_color', '$set_stroke_color', '$line_width', '$write_line_width', '$cap_style', '$write_stroke_cap_style', '$join_style', '$write_stroke_join_style', '$dashed?', '$write_stroke_dash', '$dimensions', '$add_left_padding', '$total_left_padding', '$add_right_padding', '$total_right_padding', '$parent', '$Array', '$length', '$zip']);
+  Opal.add_stubs(['$require', '$include', '$each', '$extensions', '$<<', '$attr_accessor', '$attr_reader', '$new', '$to_proc', '$render_file', '$dup', '$verify_options', '$reverse_each', '$class', '$extend', '$state=', '$-', '$populate_pages_from_store', '$state', '$min_version', '$store', '$renderer', '$==', '$[]', '$delete', '$[]=', '$initialize_first_page', '$<', '$arity', '$instance_eval', '$page', '$graphic_state', '$color_space=', '$merge!', '$page=', '$apply_margin_options', '$generate_margin_box', '$use_graphic_settings', '$insert_page', '$+', '$canvas', '$image', '$top_left', '$bounds', '$absolute_top', '$float', '$on_page_create_action', '$page_count', '$pages', '$update_height', '$y', '$absolute_bottom', '$y=', '$page_number', '$go_to_page', '$repeaters', '$run', '$render', '$open', '$reference_bounds', '$move_down', '$indent', '$to_i', '$key?', '$===', '$page_match?', '$nil?', '$fill_color', '$gsub', '$text_box', '$fail', '$odd?', '$even?', '$include?', '$call', '$send', '$start_new_page', '$merge', '$private', '$!=', '$current_fill_color', '$set_fill_color', '$current_stroke_color', '$set_stroke_color', '$line_width', '$write_line_width', '$cap_style', '$write_stroke_cap_style', '$join_style', '$write_stroke_join_style', '$dashed?', '$write_stroke_dash', '$margins', '$dimensions', '$add_left_padding', '$total_left_padding', '$add_right_padding', '$total_right_padding', '$parent', '$Array', '$length', '$zip']);
   
   self.$require("stringio");
   self.$require("prawn/document"+ '/../' + "document/bounding_box");
@@ -13652,17 +13650,16 @@ if (e == null) e = nil;
       }, TMP_Document_initialize_5.$$arity = -1);
       
       Opal.defn(self, '$start_new_page', TMP_Document_start_new_page_9 = function $$start_new_page(options) {
-        var $a, $b, TMP_7, TMP_8, self = this, last_page = nil, last_page_size = nil, last_page_layout = nil, last_page_margins = nil, page_options = nil, new_graphic_state = nil, $writer = nil;
+        var $a, TMP_7, TMP_8, self = this, last_page = nil, last_page_size = nil, last_page_layout = nil, last_page_margins = nil, page_options = nil, new_graphic_state = nil, $writer = nil;
 
         if (options == null) {
           options = $hash2([], {});
         }
         
-        if ($truthy((last_page = self.$state().$page()))) {
-          
-          last_page_size = last_page.$size();
-          last_page_layout = last_page.$layout();
-          last_page_margins = last_page.$margins().$dup();};
+        last_page = self.$state().$page();
+        last_page_size = nil;
+        last_page_layout = nil;
+        last_page_margins = nil;
         page_options = $hash2(["size", "layout", "margins"], {"size": ($truthy($a = options['$[]']("size")) ? $a : last_page_size), "layout": ($truthy($a = options['$[]']("layout")) ? $a : last_page_layout), "margins": last_page_margins});
         if ($truthy(last_page)) {
           
@@ -13680,8 +13677,7 @@ if (e == null) e = nil;
         $writer[$rb_minus($writer["length"], 1)];;
         self.$apply_margin_options(options);
         self.$generate_margin_box();
-        if ($truthy(($truthy($a = last_page) ? ($truthy($b = last_page.$size()['$!='](self.$state().$page().$size())) ? $b : last_page.$layout()['$!='](self.$state().$page().$layout())) : $a))) {
-          self.bounding_box = self.margin_box};
+        self.bounding_box = self.margin_box;
         self.$use_graphic_settings();
         if ($truthy(options['$[]']("orphan"))) {
           return nil
@@ -14109,7 +14105,7 @@ Opal.modules["prawn/font/afm"] = function(Opal) {
   }
   var self = Opal.top, $nesting = [], nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $module = Opal.module, $klass = Opal.klass, $send = Opal.send, $truthy = Opal.truthy, $hash2 = Opal.hash2, $gvars = Opal.gvars, $range = Opal.range;
 
-  Opal.add_stubs(['$attr_accessor', '$hide_m17n_warning=', '$-', '$[]', '$split', '$+', '$attr_reader', '$include?', '$fail', '$new', '$dup', '$=~', '$<<', '$==', '$find_font', '$parse_afm', '$[]=', '$to_i', '$Float', '$bbox', '$map', '$Integer', '$/', '$size', '$partition', '$kern', '$is_a?', '$inject', '$*', '$unscaled_width_of', '$join', '$any?', '$encode', '$raise', '$length', '$!', '$normalize_encoding', '$private', '$to_sym', '$name', '$symbolic?', '$merge!', '$ref!', '$attributes', '$find', '$metrics_path', '$class', '$exist?', '$foreach', '$===', '$push', '$pop', '$rstrip', '$to_s', '$parse_generic_afm_attribute', '$zip', '$to_a', '$each_with_object', '$each_value', '$to_proc', '$freeze', '$downcase', '$Array', '$each_byte', '$-@', '$last', '$pack', '$respond_to?', '$force_encoding', '$bytes']);
+  Opal.add_stubs(['$attr_accessor', '$hide_m17n_warning=', '$-', '$[]', '$split', '$+', '$attr_reader', '$include?', '$fail', '$new', '$dup', '$=~', '$==', '$find_font', '$parse_afm', '$[]=', '$to_i', '$Float', '$bbox', '$map', '$Integer', '$/', '$size', '$partition', '$kern', '$is_a?', '$inject', '$*', '$unscaled_width_of', '$join', '$any?', '$raise', '$encode', '$length', '$!', '$normalize_encoding', '$private', '$to_sym', '$name', '$symbolic?', '$merge!', '$ref!', '$attributes', '$find', '$metrics_path', '$class', '$exist?', '$each_line', '$===', '$push', '$pop', '$rstrip', '$to_s', '$parse_generic_afm_attribute', '$zip', '$to_a', '$each_with_object', '$each_value', '$to_proc', '$freeze', '$downcase', '$<<', '$Array', '$each_byte', '$-@', '$last', '$pack', '$respond_to?', '$force_encoding', '$bytes']);
   
   self.$require("prawn/font/afm"+ '/../' + "../encoding");
   return (function($base, $parent_nesting) {
@@ -14180,7 +14176,7 @@ Opal.modules["prawn/font/afm"] = function(Opal) {
           file_name = self.name.$dup();
           if ($truthy(file_name['$=~'](/\.afm$/))) {
             } else {
-            file_name['$<<'](".afm")
+            file_name = $rb_plus(file_name, ".afm")
           };
           file_name = (function() {if (file_name['$[]'](0)['$==']("/")) {
             return file_name
@@ -14239,7 +14235,7 @@ if (s == null) s = nil;if (r == null) r = nil;
           var self = this;
 
           try {
-            return text.$encode("windows-1252")
+            return nil
           } catch ($err) {
             if (Opal.rescue($err, [Opal.const_get_qualified(Opal.const_get_qualified('::', 'Encoding'), 'InvalidByteSequenceError'), Opal.const_get_qualified(Opal.const_get_qualified('::', 'Encoding'), 'UndefinedConversionError')])) {
               try {
@@ -14329,7 +14325,7 @@ if (f == null) f = nil;
           
           data = $hash2(["glyph_widths", "bounding_boxes", "kern_pairs", "attributes"], {"glyph_widths": $hash2([], {}), "bounding_boxes": $hash2([], {}), "kern_pairs": $hash2([], {}), "attributes": $hash2([], {})});
           section = [];
-          $send(Opal.const_get_relative($nesting, 'File'), 'foreach', [file_name], (TMP_19 = function(line){var self = TMP_19.$$s || this, $a, $case = nil, name = nil, $writer = nil;
+          $send(Opal.const_get_relative($nesting, 'File').$new(file_name), 'each_line', [], (TMP_19 = function(line){var self = TMP_19.$$s || this, $a, $case = nil, name = nil, $writer = nil;
 if (line == null) line = nil;
           
             $case = line;
@@ -17275,14 +17271,6 @@ if (h == null) h = nil;
 };
 
 /* Generated by Opal 0.11.0 */
-Opal.modules["praw/js"] = function(Opal) {
-  var self = Opal.top, $nesting = [], nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice;
-
-  Opal.add_stubs(['$raise']);
-  return self.$raise(Opal.const_get_relative($nesting, 'LoadError'), "can't find file: \"praw/js\" in:\n- /home/guillaume/.rvm/gems/ruby-2.4.1@prawn.js/gems/opal-0.11.0/opal\n- /home/guillaume/.rvm/gems/ruby-2.4.1@prawn.js/gems/opal-0.11.0/stdlib\n- /home/guillaume/.rvm/gems/ruby-2.4.1@prawn.js/gems/opal-0.11.0/lib\n- /home/guillaume/.rvm/gems/ruby-2.4.1@prawn.js/gems/ast-2.3.0/lib\n- /home/guillaume/.rvm/gems/ruby-2.4.1@prawn.js/gems/ast-2.3.0/lib\n- /home/guillaume/.rvm/gems/ruby-2.4.1@prawn.js/gems/parser-2.3.3.1/lib\n- /home/guillaume/workspace/opensource/prawn.js/lib\n- /home/guillaume/workspace/opensource/prawn.js/lib/prawn\n- /home/guillaume/workspace/opensource/prawn.js/build/prawn/lib\n- /home/guillaume/workspace/opensource/prawn.js/build/ttfunk/lib\n- /home/guillaume/workspace/opensource/prawn.js/build/pdf-core/lib\n\nWith the following extensions:\n- .js\n- .js.js\n- .rb\n- .js.rb\n- .opal\n- .js.opal\n- .opalerb\n- .js.opalerb\n- .erb\n- .js.erb\n\nAnd the following processors:\n- Opal::BuilderProcessors::JsProcessor\n- Opal::BuilderProcessors::RubyProcessor\n- Opal::BuilderProcessors::OpalERBProcessor\n- Opal::BuilderProcessors::ERBProcessor\n")
-};
-
-/* Generated by Opal 0.11.0 */
 (function(Opal) {
   function $rb_minus(lhs, rhs) {
     return (typeof(lhs) === 'number' && typeof(rhs) === 'number') ? lhs - rhs : lhs['$-'](rhs);
@@ -17304,8 +17292,8 @@ Opal.modules["praw/js"] = function(Opal) {
 
     
     self.$extend(self);
-    Opal.const_set($nesting[0], 'BASEDIR', Opal.const_get_relative($nesting, 'File').$expand_path("."));
-    Opal.const_set($nesting[0], 'DATADIR', Opal.const_get_relative($nesting, 'File').$expand_path("./data"));
+    Opal.const_set($nesting[0], 'BASEDIR', Opal.const_get_relative($nesting, 'File').$expand_path("./build/prawn"));
+    Opal.const_set($nesting[0], 'DATADIR', Opal.const_get_relative($nesting, 'File').$expand_path("./build/prawn/data"));
     Opal.const_set($nesting[0], 'FLOAT_PRECISION', 1.0e-09);
     self.$attr_accessor("debug");
     
@@ -17382,7 +17370,6 @@ Opal.modules["praw/js"] = function(Opal) {
   self.$require("prawn"+ '/../' + "prawn/grid");
   self.$require("prawn"+ '/../' + "prawn/view");
   self.$require("prawn"+ '/../' + "prawn/image_handler");
-  self.$require("praw/js");
   Opal.const_get_relative($nesting, 'Prawn').$image_handler().$register(Opal.const_get_qualified(Opal.const_get_qualified(Opal.const_get_relative($nesting, 'Prawn'), 'Images'), 'PNG'));
   return Opal.const_get_relative($nesting, 'Prawn').$image_handler().$register(Opal.const_get_qualified(Opal.const_get_qualified(Opal.const_get_relative($nesting, 'Prawn'), 'Images'), 'JPG'));
 })(Opal);
